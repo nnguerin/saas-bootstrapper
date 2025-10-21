@@ -1,9 +1,7 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 
-import { useState } from "react";
 import {
-  ChevronDown,
-  ChevronRight,
   Home,
   Menu,
   Network,
@@ -12,32 +10,18 @@ import {
   X,
 } from "lucide-react";
 
-export default function Header() {
+const MainNavigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [groupedExpanded, setGroupedExpanded] = useState<
-    Record<string, boolean>
-  >({});
 
   return (
     <>
-      <header className="p-4 flex items-center bg-white text-gray-800 shadow-lg">
-        <button
-          onClick={() => setIsOpen(true)}
-          className="p-2 hover:bg-gray-200 rounded-lg transition-colors"
-          aria-label="Open menu"
-        >
-          <Menu size={24} />
-        </button>
-        <h1 className="ml-4 text-xl font-semibold">
-          <Link to="/">
-            <img
-              src="/fast-saas-word-logo-white.svg"
-              alt="Fast Saas Logo"
-              className="h-10"
-            />
-          </Link>
-        </h1>
-      </header>
+      <button
+        onClick={() => setIsOpen(true)}
+        className="p-2 hover:bg-gray-200 rounded-lg transition-colors"
+        aria-label="Open menu"
+      >
+        <Menu size={24} />
+      </button>
 
       <aside
         className={`fixed top-0 left-0 h-full w-80 bg-white text-gray-800 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${
@@ -110,68 +94,10 @@ export default function Header() {
               <StickyNote size={20} />
               <span className="font-medium">Start - SSR Demos</span>
             </Link>
-            <button
-              className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
-              onClick={() =>
-                setGroupedExpanded((prev) => ({
-                  ...prev,
-                  StartSSRDemo: !prev.StartSSRDemo,
-                }))
-              }
-            >
-              {groupedExpanded.StartSSRDemo ? (
-                <ChevronDown size={20} />
-              ) : (
-                <ChevronRight size={20} />
-              )}
-            </button>
           </div>
-          {groupedExpanded.StartSSRDemo && (
-            <div className="flex flex-col ml-4">
-              <Link
-                to="/demo/start/ssr/spa-mode"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-                activeProps={{
-                  className:
-                    "flex items-center gap-3 p-3 rounded-lg  bg-rose-500 hover:bg-cyan-700 transition-colors mb-2",
-                }}
-              >
-                <StickyNote size={20} />
-                <span className="font-medium">SPA Mode</span>
-              </Link>
-
-              <Link
-                to="/demo/start/ssr/full-ssr"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-                activeProps={{
-                  className:
-                    "flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2",
-                }}
-              >
-                <StickyNote size={20} />
-                <span className="font-medium">Full SSR</span>
-              </Link>
-
-              <Link
-                to="/demo/start/ssr/data-only"
-                onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
-                activeProps={{
-                  className:
-                    "flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2",
-                }}
-              >
-                <StickyNote size={20} />
-                <span className="font-medium">Data Only</span>
-              </Link>
-            </div>
-          )}
-
-          {/* Demo Links End */}
         </nav>
       </aside>
     </>
   );
-}
+};
+export default MainNavigation;
